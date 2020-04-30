@@ -9,10 +9,12 @@ import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component
 public class LoginFilter extends ZuulFilter {
     @Autowired
     AuthService authService;
@@ -46,6 +48,9 @@ public class LoginFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
+        if(requestContext.getRequest().getRequestURI().contains("v2/api-docs")){
+            return null;
+        }
         //得到request
         HttpServletRequest request = requestContext.getRequest();
         //得到response

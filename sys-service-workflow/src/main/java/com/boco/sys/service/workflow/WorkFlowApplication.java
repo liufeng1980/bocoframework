@@ -1,6 +1,7 @@
 package com.boco.sys.service.workflow;
 
 import com.boco.framework.interceptor.FeignClientInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients //开始feignClient
 @EnableDiscoveryClient
 @SpringBootApplication
+@MapperScan(basePackages = "com.boco.sys.service.workflow.dao")
 @ComponentScan(basePackages = "com.boco.sys.service.api")
 @ComponentScan(basePackages = "com.boco.sys.service.workflow")
 @ComponentScan(basePackages={"com.boco.framework"})
