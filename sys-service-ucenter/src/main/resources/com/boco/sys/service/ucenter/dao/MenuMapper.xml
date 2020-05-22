@@ -4,7 +4,7 @@
 
     <select id="selectPermissionByUserId"
             parameterType="java.lang.String"
-            resultType="com.boco.framework.model.ucenter.Menu">
+            resultType="com.boco.framework.model.ucenter.Menu_del">
 
     SELECT
         id,

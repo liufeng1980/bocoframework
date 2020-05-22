@@ -1,5 +1,6 @@
 package com.boco.sys.service.ucenter.auth.config;
 
+import com.boco.sys.service.ucenter.auth.service.NoEncryptionPasswordEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -9,8 +10,14 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -42,6 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //采用bcrypt对密码进行编码
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        //return NoOpPasswordEncoder.getInstance();
+
+        return new NoEncryptionPasswordEncoder();
+        //return new BCryptPasswordEncoder();
     }
 }

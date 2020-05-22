@@ -47,7 +47,7 @@ public class AuthController implements AuthControllerApi {
 
     @PostMapping("/userlogin")
     @Override
-    public LoginResult login(LoginRequest loginRequest) {
+    public ResponseResult<String> login(LoginRequest loginRequest) {
         //校验账号是否输入
         if(loginRequest  == null || StringUtils.isEmpty(loginRequest.getUsername())){
             ExceptionCast.cast(AuthCode.AUTH_USERNAME_NONE);
@@ -69,7 +69,8 @@ public class AuthController implements AuthControllerApi {
         //将令牌存储到cookie
         this.saveCookie(access_token);
 
-        return new LoginResult(CommonCode.SUCCESS,access_token);
+        return ResponseResult.SUCCESS(access_token);
+        //return new LoginResult(CommonCode.SUCCESS,access_token);
 
     }
 

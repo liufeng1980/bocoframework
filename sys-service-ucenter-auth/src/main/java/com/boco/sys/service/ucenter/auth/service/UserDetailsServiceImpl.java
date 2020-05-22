@@ -1,7 +1,7 @@
 package com.boco.sys.service.ucenter.auth.service;
 
-import com.boco.framework.model.ucenter.Menu;
-import com.boco.framework.model.ucenter.ext.UserExt;
+import com.boco.framework.model.ucenter.JkptSysRight;
+import com.boco.framework.model.ucenter.ext.JkptBaseUserExt;
 import com.boco.sys.service.ucenter.auth.client.UserClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         //远程调用用户中心根据账号查询用户信息
-        UserExt userext = userClient.getUserext(username);
+        JkptBaseUserExt userext = userClient.getUserext(username);
         if(userext == null){
             //返回空给spring security表示用户不存在
             return null;
@@ -61,12 +60,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //       String password ="123";
         //用户权限，这里暂时使用静态数据，最终会从数据库读取
         //从数据库获取权限
-        List<Menu> permissions = userext.getPermissions();
+        List<JkptSysRight> permissions = userext.getPermissions();
         if(permissions == null){
             permissions = new ArrayList<>();
         }
         List<String> user_permission = new ArrayList<>();
-        permissions.forEach(item-> user_permission.add(item.getCode()));
+        permissions.forEach(item-> user_permission.add(item.getFuncode()));
         //使用静态的权限表示用户所拥有的权限
 //        user_permission.add("course_get_baseinfo");//查询课程信息
 //        user_permission.add("course_pic_list");//图片查询
@@ -74,11 +73,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserJwt userDetails = new UserJwt(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user_permission_string));
-        userDetails.setId(userext.getId());
-        userDetails.setUtype(userext.getUtype());//用户类型
-        userDetails.setCompanyId(userext.getCompanyId());//所属企业
-        userDetails.setName(userext.getName());//用户名称
-        userDetails.setUserpic(userext.getUserpic());//用户头像
+        userDetails.setIsadmin(userext.getIsadmin());
+        userDetails.setLoginid(userext.getLoginid());
+        userDetails.setOrgName(userext.getOrgName());
+        userDetails.setOrgType(userext.getOrgType());
+        userDetails.setOrgid(userext.getOrgid());
+        userDetails.setUserkeyid(userext.getUserkeyid());
+        userDetails.setUsername(userext.getUsername());
+        userDetails.setStatus(userext.getStatus());
+        userDetails.setRoleid(userext.getRoleid());
+        //userDetails.setId(userext.getLoginid());
+//        userDetails.setUtype(userext.getUtype());//用户类型
+//        userDetails.setCompanyId(userext.getCompanyId());//所属企业
+        //userDetails.setName(userext.getLoginid());//用户名称
+//        userDetails.setUserpic(userext.getUserpic());//用户头像
        /* UserDetails userDetails = new org.springframework.security.core.userdetails.User(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(""));*/

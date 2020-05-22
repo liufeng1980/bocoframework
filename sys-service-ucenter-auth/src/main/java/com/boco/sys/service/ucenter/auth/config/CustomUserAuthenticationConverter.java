@@ -33,11 +33,22 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
             UserDetails userDetails = userDetailsService.loadUserByUsername(name);
             userJwt = (UserJwt) userDetails;
         }
-        response.put("name", userJwt.getName());
-        response.put("id", userJwt.getId());
-        response.put("utype",userJwt.getUtype());
-        response.put("userpic",userJwt.getUserpic());
-        response.put("companyId",userJwt.getCompanyId());
+        response.put("username",userJwt.getUsername());
+        response.put("roleid",userJwt.getRoleid());
+        response.put("status",userJwt.getStatus());
+        response.put("loginid",userJwt.getLoginid());
+        response.put("isadmin",userJwt.getIsadmin());
+        response.put("userkeyid",userJwt.getUserkeyid());
+        response.put("orgName",userJwt.getOrgName());
+        response.put("orgType",userJwt.getOrgType());
+        response.put("orgid",userJwt.getOrgid());
+
+
+//        response.put("name", userJwt.getName());
+//        response.put("id", userJwt.getId());
+//        response.put("utype",userJwt.getUtype());
+//        response.put("userpic",userJwt.getUserpic());
+//        response.put("companyId",userJwt.getCompanyId());
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put("authorities", AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
         }

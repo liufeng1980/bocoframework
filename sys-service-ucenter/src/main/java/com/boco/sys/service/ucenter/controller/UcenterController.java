@@ -1,6 +1,6 @@
 package com.boco.sys.service.ucenter.controller;
 
-import com.boco.framework.model.ucenter.ext.UserExt;
+import com.boco.framework.model.ucenter.ext.JkptBaseUserExt;
 import com.boco.sys.service.api.usermanager.UserControllerApi;
 import com.boco.sys.service.ucenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,10 @@ public class UcenterController implements UserControllerApi {
     UserService userService;
     @Override
     @GetMapping("/getuserext")
-    public UserExt getUserByName(@RequestParam("username") String username) {
-        return userService.getUserExt(username);
+    public JkptBaseUserExt getUserByName(@RequestParam("username") String username) {
+        return userService.findUserExt(username);
     }
+
+
+
 }

@@ -1,7 +1,5 @@
 package com.boco.service.usermanager.controller;
 
-import com.boco.framework.model.ucenter.ext.UserExt;
-import com.boco.framework.model.user.User;
 import com.boco.service.usermanager.service.UserService;
 import com.boco.sys.service.api.usermanager.UserControllerApi;
 import org.springframework.beans.factory.annotation.Autowired;

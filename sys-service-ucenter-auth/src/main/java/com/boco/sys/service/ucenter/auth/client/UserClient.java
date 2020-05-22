@@ -1,9 +1,8 @@
 package com.boco.sys.service.ucenter.auth.client;
 
 import com.boco.framework.client.SysServiceList;
-import com.boco.framework.model.ucenter.User;
 
-import com.boco.framework.model.ucenter.ext.UserExt;
+import com.boco.framework.model.ucenter.ext.JkptBaseUserExt;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserClient {
     //根据账号查询用户信息
     @GetMapping("/ucenter/getuserext")
-    public UserExt getUserext(@RequestParam("username") String username);
+    public JkptBaseUserExt getUserext(@RequestParam("username") String username);
 }
